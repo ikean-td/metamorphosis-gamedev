@@ -1,6 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://c82ikrev4gfx8"]
+[gd_scene load_steps=6 format=4 uid="uid://c82ikrev4gfx8"]
 
 [ext_resource type="Texture2D" uid="uid://bdu3wkbaohlod" path="res://piskelsprites.png" id="1_wtdyi"]
+[ext_resource type="Script" uid="uid://bmi8i0s7p8651" path="res://samsa.gd" id="1_xtb1e"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xtb1e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_xtb1e"]
 texture = ExtResource("1_wtdyi")
@@ -10,7 +13,9 @@ texture_region_size = Vector2i(32, 32)
 2:0/0 = 0
 3:0/0 = 0
 0:1/0 = 0
+1:1/next_alternative_id = 2
 1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:1/0 = 0
 3:1/0 = 0
 0:2/0 = 0
@@ -19,23 +24,33 @@ texture_region_size = Vector2i(32, 32)
 1:3/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_dn5c8"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_xtb1e")
 
 [node name="mainscene" type="Node2D"]
 
-[node name="bug" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(32, 32)
+[node name="samsa" type="CharacterBody2D" parent="." node_paths=PackedStringArray("tiles")]
+position = Vector2(96, 96)
 scale = Vector2(2, 2)
+script = ExtResource("1_xtb1e")
+tiles = NodePath("../tiles")
+
+[node name="bugcollide" type="CollisionShape2D" parent="samsa"]
+position = Vector2(-48, -48)
+scale = Vector2(0.5, 0.5)
+shape = SubResource("RectangleShape2D_xtb1e")
+
+[node name="bug" type="Sprite2D" parent="samsa"]
+texture_filter = 1
 texture = ExtResource("1_wtdyi")
 region_enabled = true
 region_rect = Rect2(0, 32, 32, 32)
 
-[node name="TileMapLayer" type="TileMapLayer" parent="."]
+[node name="tiles" type="TileMapLayer" parent="."]
 texture_filter = 1
-position = Vector2(16, 16)
 scale = Vector2(2, 2)
-tile_map_data = PackedByteArray(0, 0, 0, 0, 2, 0, 0, 0, 1, 0, 1, 0, 0, 0)
+tile_map_data = PackedByteArray("AAAAAAIAAAABAAEAAAAAAAEAAAABAAEAAAAAAAAAAAABAAEAAAABAAAAAAABAAEAAAACAAAAAAABAAEAAAADAAAAAAABAAEAAAAEAAAAAAABAAEAAAAFAAAAAAABAAEAAAAGAAAAAAABAAEAAAAHAAAAAAABAAEAAAAIAAAAAAABAAEAAAAJAAAAAAABAAEAAAAKAAAAAAABAAEAAAALAAAAAAABAAEAAAAMAAAAAAABAAEAAAANAAAAAAABAAEAAAAOAAAAAAABAAEAAAAPAAAAAAABAAEAAAAQAAAAAAABAAEAAAARAAAAAAABAAEAAAARAAEAAAABAAEAAAARAAIAAAABAAEAAAARAAMAAAABAAEAAAARAAQAAAABAAEAAAARAAUAAAABAAEAAAARAAYAAAABAAEAAAARAAcAAAABAAEAAAARAAgAAAABAAEAAAARAAkAAAABAAEAAAAQAAkAAAABAAEAAAAPAAkAAAABAAEAAAAOAAkAAAABAAEAAAANAAkAAAABAAEAAAAMAAkAAAABAAEAAAAKAAkAAAABAAEAAAAJAAkAAAABAAEAAAAIAAkAAAABAAEAAAAHAAkAAAABAAEAAAAGAAkAAAABAAEAAAAFAAkAAAABAAEAAAAEAAkAAAABAAEAAAADAAkAAAABAAEAAAACAAkAAAABAAEAAAABAAkAAAABAAEAAAAAAAkAAAABAAEAAAAAAAgAAAABAAEAAAAAAAcAAAABAAEAAAAAAAYAAAABAAEAAAAAAAUAAAABAAEAAAAAAAQAAAABAAEAAAAAAAMAAAABAAEAAAALAAkAAAABAAEAAAAGAAEAAAABAAEAAAAGAAIAAAABAAEAAAAGAAMAAAABAAEAAAAGAAQAAAABAAEAAAAGAAUAAAABAAEAAAAKAAgAAAABAAEAAAAKAAcAAAABAAEAAAAKAAYAAAABAAEAAAAKAAUAAAABAAEAAAAJAAUAAAABAAEAAAAHAAUAAAABAAEAAAA=")
 tile_set = SubResource("TileSet_dn5c8")
 rendering_quadrant_size = 36
 physics_quadrant_size = 36
