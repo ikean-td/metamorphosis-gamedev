@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfq7s13rgq5x0"]
+
+[ext_resource type="Texture2D" uid="uid://ciiyw3vqodle6" path="res://piskelsprites.png" id="1_g2tbl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2tbl"]
+size = Vector2(32, 32)
+
+[node name="box" type="Node2D"]
+scale = Vector2(2, 2)
+
+[node name="thebox" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_g2tbl")
+region_enabled = true
+region_rect = Rect2(32, 64, 32, 32)
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="hitarea" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_g2tbl")
