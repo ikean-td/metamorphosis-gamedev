@@ -15,12 +15,17 @@ func load_room(room: String, location: int):
 		
 	var new_room = load(room).instantiate()
 	roomholder.add_child(new_room)
-	player.tiles = roomholder.get_child(0).find_child("tiles")
+	player.tiles = new_room.get_child(0)
+	player.wall_positions = new_room.wall_positions
+	player.boxes = new_room.boxes
+	player.apples = new_room.apples
+	player.all_tiles = new_room.all_tiles
+	player.all_pits = new_room.all_pits
 	#print(roomholder.get_child(0))
 	current_room = new_room
 	
-	if location == 0: player.position = Vector2(96.0,352.0)
-	if location == 1: player.position = Vector2(544.0,96.0)
-	if location == 2: player.position = Vector2(1056.0,352.0)
-	if location == 3: player.position = Vector2(544.0,544.0)
+	if location == 0: player.position = Vector2(96.0,360.0)
+	if location == 1: player.position = Vector2(544.0,104.0)
+	if location == 2: player.position = Vector2(1056.0,360.0)
+	if location == 3: player.position = Vector2(544.0,552.0)
 	player.pos = player.position

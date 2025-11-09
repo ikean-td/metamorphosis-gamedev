@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://d1vw7p6gv4cra"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_bpemt"]
+load_path = "res://.godot/imported/piskelsprites.png-60e4edfeaab9306a401d67665c554ec4.ctex"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3ed3y"]
+size = Vector2(32, 32)
+
+[node name="apple" type="Node2D"]
+scale = Vector2(2, 2)
+
+[node name="thebox" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, -4)
+texture = SubResource("CompressedTexture2D_bpemt")
+region_enabled = true
+region_rect = Rect2(32, 128, 32, 32)
+
+[node name="hitbox" type="Area2D" parent="."]
+
+[node name="hitarea" type="CollisionShape2D" parent="hitbox"]
+shape = SubResource("RectangleShape2D_3ed3y")

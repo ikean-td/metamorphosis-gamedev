@@ -1,15 +1,18 @@
-[gd_scene load_steps=3 format=3 uid="uid://cfq7s13rgq5x0"]
+[gd_scene load_steps=4 format=3 uid="uid://cfq7s13rgq5x0"]
 
-[ext_resource type="Texture2D" uid="uid://ciiyw3vqodle6" path="res://piskelsprites.png" id="1_g2tbl"]
+[ext_resource type="Texture2D" uid="uid://blo6g83fcl435" path="res://piskelsprites.png" id="1_g2tbl"]
+[ext_resource type="Script" uid="uid://d4kkk4luaywwf" path="res://box.gd" id="1_oq5cr"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2tbl"]
 size = Vector2(32, 32)
 
 [node name="box" type="Node2D"]
 scale = Vector2(2, 2)
+script = ExtResource("1_oq5cr")
 
 [node name="thebox" type="Sprite2D" parent="."]
 texture_filter = 1
+position = Vector2(0, -4)
 texture = ExtResource("1_g2tbl")
 region_enabled = true
 region_rect = Rect2(32, 64, 32, 32)

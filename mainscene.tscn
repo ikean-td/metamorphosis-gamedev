@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://c82ikrev4gfx8"]
+[gd_scene load_steps=7 format=3 uid="uid://c82ikrev4gfx8"]
 
-[ext_resource type="Texture2D" uid="uid://ciiyw3vqodle6" path="res://piskelsprites.png" id="1_wtdyi"]
+[ext_resource type="Texture2D" uid="uid://blo6g83fcl435" path="res://piskelsprites.png" id="1_wtdyi"]
 [ext_resource type="Script" uid="uid://bmi8i0s7p8651" path="res://samsa.gd" id="1_xtb1e"]
 [ext_resource type="Script" uid="uid://h1nnm5owhot4" path="res://manager.gd" id="3_dn5c8"]
+[ext_resource type="PackedScene" uid="uid://d22u14j4fqv52" path="res://rooms/bedroom.tscn" id="4_sbvtr"]
+[ext_resource type="Texture2D" uid="uid://bfufxasfrhoww" path="res://placeholder.png" id="5_fl65m"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xtb1e"]
 size = Vector2(63, 63)
@@ -14,17 +16,22 @@ script = ExtResource("3_dn5c8")
 player = NodePath("../samsa")
 roomholder = NodePath("../cur_room")
 
-[node name="samsa" type="CharacterBody2D" parent="."]
+[node name="samsa" type="CharacterBody2D" parent="." node_paths=PackedStringArray("roomholder", "undo_button", "face", "bcounter", "bstate")]
 z_index = 2
-position = Vector2(96, 96)
+position = Vector2(96, 104)
 scale = Vector2(2, 2)
 script = ExtResource("1_xtb1e")
+roomholder = NodePath("../cur_room")
+undo_button = NodePath("../overhead/undo")
+face = NodePath("bug")
+bcounter = NodePath("../overhead/bugcounter")
+bstate = NodePath("../overhead/state")
 
 [node name="bug" type="Sprite2D" parent="samsa"]
 texture_filter = 1
 texture = ExtResource("1_wtdyi")
 region_enabled = true
-region_rect = Rect2(0, 32, 32, 32)
+region_rect = Rect2(0, 128, 32, 32)
 
 [node name="bugcollide" type="CollisionShape2D" parent="samsa"]
 modulate = Color(0.7418469, 0, 0.23605269, 1)
@@ -32,3 +39,50 @@ scale = Vector2(0.5, 0.5)
 shape = SubResource("RectangleShape2D_xtb1e")
 
 [node name="cur_room" type="Node2D" parent="."]
+position = Vector2(0, 8)
+
+[node name="bedroom" parent="cur_room" instance=ExtResource("4_sbvtr")]
+visible = false
+script = null
+
+[node name="overhead" type="Node2D" parent="."]
+
+[node name="bar" type="Sprite2D" parent="overhead"]
+modulate = Color(0.11119685, 0.11119684, 0.11119684, 1)
+position = Vector2(576, 36)
+scale = Vector2(36, 2.229)
+texture = ExtResource("5_fl65m")
+region_enabled = true
+region_rect = Rect2(1000, 0, 32, 32)
+
+[node name="undo" type="Button" parent="overhead"]
+modulate = Color(0.91706735, 0.7757175, 0.45740813, 1)
+offset_left = 1029.0
+offset_top = 10.0
+offset_right = 1133.0
+offset_bottom = 64.0
+text = "Undo (X)"
+
+[node name="bugcounter" type="Label" parent="overhead"]
+offset_left = 280.0
+offset_top = 36.0
+offset_right = 880.0
+offset_bottom = 79.0
+theme_override_font_sizes/font_size = 16
+text = "Turns Remaining as Bug: 100"
+horizontal_alignment = 1
+
+[node name="state" type="RichTextLabel" parent="overhead"]
+offset_left = 280.0
+offset_top = 8.0
+offset_right = 880.0
+offset_bottom = 48.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/normal_font_size = 24
+theme_override_font_sizes/bold_font_size = 24
+bbcode_enabled = true
+text = "MAN"
+horizontal_alignment = 1
+
+[connection signal="button_down" from="overhead/undo" to="samsa" method="do_undo"]
