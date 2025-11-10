@@ -1,13 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://c82ikrev4gfx8"]
+[gd_scene load_steps=8 format=3 uid="uid://c82ikrev4gfx8"]
 
 [ext_resource type="Texture2D" uid="uid://blo6g83fcl435" path="res://piskelsprites.png" id="1_wtdyi"]
 [ext_resource type="Script" uid="uid://bmi8i0s7p8651" path="res://samsa.gd" id="1_xtb1e"]
-[ext_resource type="Script" uid="uid://dojuy1i1oh0bt" path="res://director.gd" id="2_76yo1"]
 [ext_resource type="Script" uid="uid://h1nnm5owhot4" path="res://manager.gd" id="3_dn5c8"]
 [ext_resource type="PackedScene" uid="uid://d22u14j4fqv52" path="res://rooms/bedroom.tscn" id="4_sbvtr"]
 [ext_resource type="Texture2D" uid="uid://bfufxasfrhoww" path="res://placeholder.png" id="5_fl65m"]
 [ext_resource type="Script" uid="uid://c66ctd1yxytmv" path="res://speechbox.gd" id="6_fl65m"]
-[ext_resource type="Texture2D" uid="uid://cwk3iwuraoy34" path="res://whitetriangle.png" id="8_8bn17"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_xtb1e"]
 size = Vector2(63, 63)
@@ -18,11 +16,6 @@ size = Vector2(63, 63)
 script = ExtResource("3_dn5c8")
 player = NodePath("../samsa")
 roomholder = NodePath("../cur_room")
-
-[node name="director" type="Node" parent="." node_paths=PackedStringArray("speech", "player")]
-script = ExtResource("2_76yo1")
-speech = NodePath("../overhead/speechbox")
-player = NodePath("../samsa")
 
 [node name="samsa" type="CharacterBody2D" parent="." node_paths=PackedStringArray("roomholder", "manager", "undo_button", "face", "bcounter", "bstate", "curtain")]
 z_index = 2
@@ -77,18 +70,18 @@ text = "Undo (X)"
 
 [node name="bugcounter" type="Label" parent="overhead"]
 offset_left = 280.0
-offset_top = 86.0
+offset_top = 74.0
 offset_right = 880.0
-offset_bottom = 129.0
+offset_bottom = 117.0
 theme_override_font_sizes/font_size = 16
 text = "Turns Remaining as Bug: 100"
 horizontal_alignment = 1
 
 [node name="state" type="RichTextLabel" parent="overhead"]
 offset_left = 280.0
-offset_top = 20.0
+offset_top = 8.0
 offset_right = 880.0
-offset_bottom = 82.0
+offset_bottom = 70.0
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 2
 theme_override_font_sizes/normal_font_size = 40
@@ -106,7 +99,7 @@ texture = ExtResource("5_fl65m")
 region_enabled = true
 region_rect = Rect2(1000, 0, 32, 32)
 
-[node name="speechbox" type="RichTextLabel" parent="overhead" node_paths=PackedStringArray("goahead")]
+[node name="speechbox" type="RichTextLabel" parent="overhead"]
 z_index = 2
 offset_left = 21.0
 offset_top = 18.0
@@ -120,13 +113,6 @@ bbcode_enabled = true
 text = "when gregor samsa awoke from terrible dreams"
 scroll_active = false
 script = ExtResource("6_fl65m")
-goahead = NodePath("../continue")
-
-[node name="continue" type="Sprite2D" parent="overhead"]
-position = Vector2(355, 110)
-rotation = 3.1415927
-scale = Vector2(0.03800004, 0.03800004)
-texture = ExtResource("8_8bn17")
 
 [node name="fourth wall" type="Sprite2D" parent="."]
 visible = false

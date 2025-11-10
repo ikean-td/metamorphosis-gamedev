@@ -8,8 +8,8 @@ var apples: Array[Node2D] = []
 var all_tiles: Array[Vector2i] = []
 var all_pits: Array[Vector2i] = []
 var all_doors: Array[Vector2i] = []
-var exit_rooms = [null,null,null,"res://rooms/hallway.tscn"]
-var rem = 8
+var exit_rooms = [null,"res://rooms/feast.tscn",null,"res://rooms/kitchen.tscn"]
+var rem = 10
 
 func _ready():
 	for cell in tiles.get_used_cells(): # layer 0

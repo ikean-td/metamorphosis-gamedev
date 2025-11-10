@@ -1,6 +1,6 @@
 extends Node2D
 
-func push(start,end,boxes,walls,pits,apples):
+func push(start,end,boxes,walls,pits,apples,doors):
 	var dir = (end - start) + end
 	var do = true
 	var appos = []
@@ -11,8 +11,8 @@ func push(start,end,boxes,walls,pits,apples):
 		print("doubles", dir, box.position)
 		if dir == box.position:
 			print("chain push")
-			if not box.push(end,dir,boxes,walls,pits,apples): return false
-	if Vector2i((dir.x-32)/64,(dir.y-32)/64) not in walls and Vector2i((dir.x-32)/64,(dir.y-32)/64) not in pits and dir not in appos and do:
+			if not box.push(end,dir,boxes,walls,pits,apples,doors): return false
+	if Vector2i((dir.x-32)/64,(dir.y-32)/64) not in walls and Vector2i((dir.x-32)/64,(dir.y-32)/64) not in pits and Vector2i((dir.x-32)/64,(dir.y-32)/64) not in doors and dir not in appos and do:
 		var tween = create_tween()
 		print(end+dir)
 		tween.tween_property(self,"position",dir,Global.move_time).set_ease(Tween.EASE_IN_OUT)
